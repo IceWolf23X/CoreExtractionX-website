@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Install and validate CoreExtractionX on Paper servers.">
+    <title>CoreExtractionX Setup - Installation Guide</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <meta name="theme-color" content="#0c0a06">
+    <script>(()=>{try{if(localStorage.getItem("coreextractionx-theme")==="light"){document.documentElement.dataset.theme="light";}}catch(_){}})();</script>
+    <link rel="stylesheet" href="./assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="./index.html" aria-label="CoreExtractionX home"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button><div class="nav-links" id="nav-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div><div class="nav-actions"><a class="nav-cta nav-download" href="#download">Download</a><a class="nav-cta" href="./configuration.html">Configure</a></div></nav></header>
+    <main id="main">
+      <section class="page-hero"><div class="shell"><div class="section-heading"><p class="eyebrow">Installation guide</p><h1>Install CoreExtractionX on a supported Paper server.</h1><p>CoreExtractionX is a Paper-only plugin for Java 21 and Paper 1.21.11 or newer. It generates three YAML files on first boot.</p></div></div></section>
+      <section class="section doc-page">
+        <div class="shell doc-layout">
+          <aside class="doc-sidebar" aria-label="Setup sections"><strong>On this page</strong><a href="#requirements">Requirements</a><a href="#download">Download</a><a href="#install">Install</a><a href="#generated-files">Generated Files</a><a href="#reload">Reload vs Restart</a><a href="#first-test">First Tests</a><a href="#validation">Validation</a></aside>
+          <article class="markdown-body">
+            <h2 id="requirements">Requirements</h2>
+            <ul><li>Paper 1.21.11 or newer.</li><li>Java 21 or newer.</li><li>CoreExtractionX jar installed on a Paper backend.</li><li>A permission plugin only if you want to manage <code>coreextractionx.use</code> and <code>coreextractionx.reload</code> outside vanilla ops.</li></ul>
+
+            <h2 id="download">Download</h2>
+            <p>The current source build line is <code>2026.1.0</code>. Use the packaged jar artifact for deployment.</p>
+            <pre class="code-block"><code>CoreExtractionX-2026.1.0.jar</code></pre>
+
+            <h2 id="install">Installation Flow</h2>
+            <ol><li>Stop the Paper server.</li><li>Place the CoreExtractionX jar in the server <code>plugins</code> folder.</li><li>Start the server once so defaults are generated.</li><li>Confirm the plugin enables without fatal config warnings.</li><li>Edit generated files under <code>plugins/CoreExtractionX/</code>.</li><li>Run <code>/coreextractionx reload</code> or <code>/cex reload</code> after normal YAML edits.</li></ol>
+
+            <h2 id="generated-files">Generated Files</h2>
+            <pre class="code-block"><code>plugins/CoreExtractionX/
+  config.yml
+  ores.yml
+  messages.yml</code></pre>
+            <p><code>plugin.yml</code> is bundled inside the jar and declares commands, aliases, permissions, and plugin identity.</p>
+
+            <h2 id="reload">Reload vs Restart</h2>
+            <p>Use <code>/cex reload</code> for normal edits to <code>config.yml</code>, <code>ores.yml</code>, and <code>messages.yml</code>. Commands remain available even if a fatal global enum error puts extraction logic into safe-disabled state.</p>
+            <p>Restart when replacing the jar, changing Paper/Minecraft version, or validating a clean boot after large operational changes.</p>
+
+            <h2 id="first-test">First Tests</h2>
+            <ol><li>Mine coal ore with no Silk Touch and confirm it becomes cobblestone.</li><li>Mine deepslate diamond ore and confirm it becomes cobbled deepslate.</li><li>Mine nether quartz ore and confirm it becomes netherrack.</li><li>Test a Silk Touch tool and confirm vanilla behavior by default.</li><li>Temporarily set one rule to <code>mode: DROP</code> and test a fixed extra drop.</li><li>Run <code>/cex reload</code> and confirm loaded/skipped counts.</li></ol>
+
+            <h2 id="validation">Production Validation</h2>
+            <ul><li>Confirm console has no CoreExtractionX warnings after reload.</li><li>Test with a non-op account if permissions are managed.</li><li>Test a protected region or claim plugin and confirm cancelled breaks are ignored.</li><li>Verify world filter behavior before enabling on production worlds.</li><li>Keep a backup of edited YAML before adding large custom rule sets.</li></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand footer-brand" href="./index.html"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><p>YAML-driven block extraction rules for Paper survival servers.</p></div><div class="footer-links"><a href="./features.html">Features</a><a href="./configuration.html">Config</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div></div><div class="shell footer-bottom"><span>Copyright 2026 CoreExtractionX. All rights reserved.</span><span>Installation guide for Paper servers.</span></div></footer>
+    <script src="./assets/site.js"></script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CoreExtractionX configuration reference for config.yml, ores.yml, messages.yml, commands, permissions, and troubleshooting.">
+    <title>CoreExtractionX Configuration Reference</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <meta name="theme-color" content="#0c0a06">
+    <script>(()=>{try{if(localStorage.getItem("coreextractionx-theme")==="light"){document.documentElement.dataset.theme="light";}}catch(_){}})();</script>
+    <link rel="stylesheet" href="./assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="./index.html" aria-label="CoreExtractionX home"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button><div class="nav-links" id="nav-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div><div class="nav-actions"><a class="nav-cta nav-download" href="./installation.html#download">Download</a><a class="nav-cta" href="./installation.html">Get Started</a></div></nav></header>
+    <main id="main">
+      <section class="page-hero"><div class="shell section-heading"><p class="eyebrow">Complete configuration reference</p><h1>Configuration Reference</h1><p>Current CoreExtractionX YAML files, reload boundaries, runtime model, permissions, troubleshooting, and production checks.</p></div></section>
+      <section class="section doc-page">
+        <div class="shell doc-layout">
+          <aside class="doc-sidebar" aria-label="Page contents"><strong>Contents</strong><a href="#before-you-configure">0. Before You Configure</a><a href="#file-layout">1. File Layout</a><a href="#reload-vs-restart">2. Reload vs Restart</a><a href="#runtime-model">3. Runtime Model</a><a href="#config-yml">4. config.yml</a><a href="#ores-yml">5. ores.yml</a><a href="#messages-yml">6. messages.yml</a><a href="#plugin-yml">7. plugin.yml</a><a href="#permissions">8. Permissions</a><a href="#troubleshooting-quick-reference">9. Troubleshooting</a><a href="#production-validation-checklist">10. Production Checklist</a></aside>
+          <article class="markdown-body">
+            <h2 id="before-you-configure">0. Before You Configure</h2>
+            <p>Minimum requirements are Paper 1.21.11+, Java 21+, and CoreExtractionX installed on a Paper server. Configure and test rules on a staging world before enabling broad custom extraction behavior.</p>
+
+            <h2 id="file-layout">1. File Layout</h2>
+            <pre class="code-block"><code>plugins/CoreExtractionX/
+  config.yml
+  ores.yml
+  messages.yml</code></pre>
+            <p><code>plugin.yml</code> is bundled inside the jar and documents commands, aliases, permissions, and plugin identity.</p>
+
+            <h2 id="reload-vs-restart">2. Reload vs Restart</h2>
+            <p>Use <code>/coreextractionx reload</code> or <code>/cex reload</code> for normal YAML edits. Restart when replacing the jar, changing Paper/Minecraft version, or validating a clean boot.</p>
+            <p>Fatal global enum errors safe-disable extraction logic, but reload commands remain available so the config can be fixed without a full restart.</p>
+
+            <h2 id="runtime-model">3. Runtime Model</h2>
+            <p>CoreExtractionX only runs for survival players. World filtering can allow all worlds, whitelist specific worlds, or blacklist specific worlds. Cancelled block break events are ignored.</p>
+
+            <h2 id="config-yml">4. <code>config.yml</code></h2>
+            <p>Controls global runtime settings, permission behavior, Silk Touch behavior, world filtering, manual drop location, replacement physics, and XP preservation.</p>
+            <pre class="code-block"><code>settings:
+  enabled: true
+  debug: false
+  permission: "coreextractionx.use"
+  no-permission-behavior: VANILLA
+  silk-touch-behavior: VANILLA
+
+world-filter:
+  mode: DISABLED
+  worlds: []
+
+drop-spawn:
+  mode: HIT_FACE
+  raytrace-distance: 6.0
+  face-offset: 0.75
+
+replacement:
+  apply-physics: false
+
+experience:
+  preserve-vanilla-exp: true</code></pre>
+            <p>Global enum mistakes are fatal config errors. Valid values are documented in the generated file comments.</p>
+
+            <h2 id="ores-yml">5. <code>ores.yml</code></h2>
+            <p>Defines block extraction rules. Keys under <code>blocks:</code> are dynamic material names. Disabled rules are skipped before material validation so the included template can stay harmless.</p>
+            <pre class="code-block"><code>blocks:
+  diamond_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+
+  stone:
+    enabled: true
+    mode: DROP
+    replacement: GRAVEL
+    drop:
+      amount-mode: FIXED
+      fixed-amount: 1</code></pre>
+            <p><code>REPLACEMENT</code> requires a replacement block. <code>DROP</code> requires a replacement item. Invalid enabled rules are skipped with a specific warning and do not block valid rules.</p>
+
+            <h2 id="messages-yml">6. <code>messages.yml</code></h2>
+            <p>Messages use Adventure MiniMessage. Plugin placeholders use <code>{name}</code> syntax to avoid conflicts with MiniMessage tags.</p>
+            <pre class="code-block"><code>reload-success: "&lt;green&gt;CoreExtractionX reloaded. Loaded {loaded} rules, skipped {skipped} invalid rules.&lt;/green&gt;"</code></pre>
+            <p>Leave a message empty to disable it.</p>
+
+            <h2 id="plugin-yml">7. <code>plugin.yml</code></h2>
+            <pre class="code-block"><code>name: CoreExtractionX
+main: it.icewolf23x.coreextractionx.CoreExtractionX
+version: 2026.1.0
+api-version: '1.21'
+commands:
+  coreextractionx:
+    aliases:
+      - cex
+permissions:
+  coreextractionx.reload:
+    default: op
+  coreextractionx.use:
+    default: true</code></pre>
+
+            <h2 id="permissions">8. Permissions</h2>
+            <pre class="code-block"><code>coreextractionx.reload
+coreextractionx.use
+coreextractionx.extract.&lt;block&gt;   # optional per-rule example</code></pre>
+            <p>If a rule permission is absent or blank, <code>settings.permission</code> is used. If the resolved permission is blank, no permission is required.</p>
+
+            <h2 id="troubleshooting-quick-reference">9. Troubleshooting Quick Reference</h2>
+            <h3>Rule does nothing</h3>
+            <ul><li>Check the source block key resolves to a real block material.</li><li>Confirm <code>enabled: true</code>.</li><li>Confirm the world filter allows the world.</li><li>Check permissions and Silk Touch behavior.</li></ul>
+            <h3>Reload failed</h3>
+            <ul><li>Check console for a fatal global enum error.</li><li>Fix <code>no-permission-behavior</code>, <code>silk-touch-behavior</code>, <code>world-filter.mode</code>, or <code>drop-spawn.mode</code>.</li><li>Run <code>/cex reload</code> again.</li></ul>
+            <h3>Drops appear in the wrong amount</h3>
+            <p>For DROP mode, check <code>drop.amount-mode</code>. <code>MATCH_DROPS</code> uses the initial generated drop quantity; <code>MATCH_QUANTITY</code> uses the current event item quantity at CoreExtractionX handling time.</p>
+
+            <h2 id="production-validation-checklist">10. Production Validation Checklist</h2>
+            <ul><li>Run <code>/cex reload</code>.</li><li>Confirm loaded/skipped counts are expected.</li><li>Mine one default ore from each section.</li><li>Test a wrong tool and a Silk Touch tool.</li><li>Test permissions with a non-op account.</li><li>Test protection compatibility with a cancelled block break.</li><li>Restart once after replacing the jar.</li></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand footer-brand" href="./index.html"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><p>YAML-driven block extraction rules for Paper survival servers.</p></div><div class="footer-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div></div><div class="shell footer-bottom"><span>Copyright 2026 CoreExtractionX. All rights reserved.</span><span>Configuration reference for server owners.</span></div></footer>
+    <script src="./assets/site.js"></script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CoreExtractionX feature overview for replacement mode, drop mode, permissions, Silk Touch behavior, and protection compatibility.">
+    <title>CoreExtractionX Features - Product Overview</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="./assets/coreextractionx-logo.svg">
+    <meta name="theme-color" content="#0c0a06">
+    <script>(()=>{try{if(localStorage.getItem("coreextractionx-theme")==="light"){document.documentElement.dataset.theme="light";}}catch(_){}})();</script>
+    <link rel="stylesheet" href="./assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="./index.html" aria-label="CoreExtractionX home"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button><div class="nav-links" id="nav-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div><div class="nav-actions"><a class="nav-cta nav-download" href="./installation.html#download">Download</a><a class="nav-cta" href="./installation.html">Get Started</a></div></nav></header>
+    <main id="main">
+      <section class="page-hero"><div class="shell"><div class="section-heading"><p class="eyebrow">Product overview</p><h1>A focused extraction layer for Paper survival servers.</h1><p>CoreExtractionX is deliberately small: configured blocks, two behavior modes, YAML validation, and safe reloads.</p></div></div></section>
+      <section class="section doc-page">
+        <div class="shell doc-layout">
+          <aside class="doc-sidebar" aria-label="Feature sections"><strong>On this page</strong><a href="#core-design">Core Design</a><a href="#replacement">REPLACEMENT</a><a href="#drop">DROP</a><a href="#rules">Dynamic Rules</a><a href="#permissions">Permissions</a><a href="#silk-touch">Silk Touch</a><a href="#drops">Drop Spawning</a><a href="#scope">Compatibility</a></aside>
+          <article class="markdown-body">
+            <h2 id="core-design">Core Design</h2>
+            <p>CoreExtractionX is a Paper-only survival enhancement plugin for Java 21 and Paper 1.21.11+. It changes configured block behavior when mined, while leaving all unconfigured blocks fully vanilla.</p>
+            <p>The plugin does not include a database, economy, GUI, progression system, vein mining, auto mining, custom drop framework, or protection-plugin hard dependency.</p>
+
+            <h2 id="replacement">REPLACEMENT Mode</h2>
+            <p><code>REPLACEMENT</code> mode replaces the source block in the world and manually spawns the natural drops from the original block.</p>
+            <pre class="code-block"><code>blocks:
+  diamond_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE</code></pre>
+            <p>Drops are calculated once with the player's current main-hand tool and player entity. Fortune is handled by Paper's normal loot logic. XP is preserved as orbs when enabled.</p>
+
+            <h2 id="drop">DROP Mode</h2>
+            <p><code>DROP</code> mode leaves vanilla block breaking intact and adds an extra configured replacement item after generated drops exist.</p>
+            <pre class="code-block"><code>blocks:
+  diamond_ore:
+    enabled: true
+    mode: DROP
+    replacement: COBBLESTONE
+    drop:
+      amount-mode: FIXED
+      fixed-amount: 1</code></pre>
+            <p>Supported amount modes are <code>FIXED</code>, <code>RANDOM</code>, <code>MATCH_DROPS</code>, and <code>MATCH_QUANTITY</code>.</p>
+
+            <h2 id="rules">Dynamic Block Rules</h2>
+            <p>Rules live under <code>blocks:</code> in <code>ores.yml</code>. Keys are dynamic Bukkit/Paper material names, read case-insensitively and stored internally by <code>Material</code>.</p>
+            <p>Invalid enabled rules are skipped with warnings. Valid rules continue loading.</p>
+
+            <h2 id="permissions">Permission Behavior</h2>
+            <p>CoreExtractionX resolves a block-specific permission first, then falls back to <code>settings.permission</code>. If no permission is required, every survival player can trigger the rule.</p>
+            <p>When a player lacks permission, <code>VANILLA</code> lets normal mining continue and <code>DENY</code> cancels the break.</p>
+
+            <h2 id="silk-touch">Silk Touch Behavior</h2>
+            <p>Silk Touch defaults to <code>VANILLA</code>, meaning CoreExtractionX does nothing and vanilla handles the break. Use <code>DENY</code> globally or per block to cancel Silk Touch mining for configured rules.</p>
+
+            <h2 id="drops">Drop Spawning</h2>
+            <p>Manual drops can spawn at the block center or near the face the player is looking at. Extra DROP-mode stacks are split by material max stack size and invalid item stacks are avoided.</p>
+
+            <h2 id="scope">Protection Compatibility and Scope</h2>
+            <p>CoreExtractionX uses <code>ignoreCancelled = true</code> for block break handling. If a protection plugin cancels the break first, CoreExtractionX does not modify blocks, drops, XP, or durability.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand footer-brand" href="./index.html"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><p>YAML-driven block extraction rules for Paper survival servers.</p></div><div class="footer-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div></div><div class="shell footer-bottom"><span>Copyright 2026 CoreExtractionX. All rights reserved.</span><span>Product overview for server owners.</span></div></footer>
+    <script src="./assets/site.js"></script>
+  </body>
+</html>
