@@ -15,7 +15,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="./index.html" aria-label="CoreExtractionX home"><span class="brand-mark" aria-hidden="true"><img src="./assets/coreextractionx-logo.svg" alt="" width="40" height="40"></span><span class="brand-text">CoreExtractionX</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button><div class="nav-links" id="nav-links"><a href="./features.html">Features</a><a href="./installation.html">Setup</a><a href="./docs.html">Docs</a><a href="./faq.html">FAQ</a><a href="https://github.com/IceWolf23X/CoreExtractionX-issues">GitHub</a></div><div class="nav-actions"><a class="nav-cta nav-download" href="./installation.html#download">Download</a><a class="nav-cta" href="./installation.html">Get Started</a></div></nav></header>
     <main id="main">
-      <section class="page-hero"><div class="shell section-heading"><p class="eyebrow">Complete configuration reference</p><h1>Configuration Reference</h1><p>Current CoreExtractionX YAML files, reload boundaries, runtime model, permissions, troubleshooting, and production checks.</p></div></section>
+      <section class="page-hero"><div class="shell section-heading"><p class="eyebrow">Complete configuration reference</p><h1>Configuration Reference</h1><p>Complete CoreExtractionX YAML references, reload boundaries, runtime model, permissions, troubleshooting, and production checks.</p></div></section>
       <section class="section doc-page">
         <div class="shell doc-layout">
           <aside class="doc-sidebar" aria-label="Page contents"><strong>Contents</strong><a href="#before-you-configure">0. Before You Configure</a><a href="#file-layout">1. File Layout</a><a href="#reload-vs-restart">2. Reload vs Restart</a><a href="#runtime-model">3. Runtime Model</a><a href="#config-yml">4. config.yml</a><a href="#ores-yml">5. ores.yml</a><a href="#messages-yml">6. messages.yml</a><a href="#plugin-yml">7. plugin.yml</a><a href="#permissions">8. Permissions</a><a href="#troubleshooting-quick-reference">9. Troubleshooting</a><a href="#production-validation-checklist">10. Production Checklist</a></aside>
@@ -27,8 +27,11 @@
             <pre class="code-block"><code>plugins/CoreExtractionX/
   config.yml
   ores.yml
-  messages.yml</code></pre>
-            <p><code>plugin.yml</code> is bundled inside the jar and documents commands, aliases, permissions, and plugin identity.</p>
+  messages.yml
+
+inside CoreExtractionX jar:
+  plugin.yml</code></pre>
+            <p><code>config.yml</code>, <code>ores.yml</code>, and <code>messages.yml</code> are generated under the plugin data folder. <code>plugin.yml</code> is bundled inside the jar and documents commands, aliases, permissions, and plugin identity.</p>
 
             <h2 id="reload-vs-restart">2. Reload vs Restart</h2>
             <p>Use <code>/coreextractionx reload</code> or <code>/cex reload</code> for normal YAML edits. Restart when replacing the jar, changing Paper/Minecraft version, or validating a clean boot.</p>
@@ -38,65 +41,353 @@
             <p>CoreExtractionX only runs for survival players. World filtering can allow all worlds, whitelist specific worlds, or blacklist specific worlds. Cancelled block break events are ignored.</p>
 
             <h2 id="config-yml">4. <code>config.yml</code></h2>
-            <p>Controls global runtime settings, permission behavior, Silk Touch behavior, world filtering, manual drop location, replacement physics, and XP preservation.</p>
-            <pre class="code-block"><code>settings:
+            <p>Complete bundled default for global runtime settings, permission behavior, Silk Touch behavior, world filtering, manual drop location, replacement physics, and XP preservation.</p>
+            <pre class="code-block"><code># ============================================================
+# CoreExtractionX configuration
+# ============================================================
+#
+# This file contains only global runtime settings.
+# Edit ores.yml for block extraction rules.
+# Edit messages.yml for player-facing messages.
+
+config-version: 1
+
+settings:
   enabled: true
   debug: false
+
+  # CoreExtractionX only runs for SURVIVAL players.
+  # This is intentionally not configurable in v1.
+
+  # Global permission required to use CoreExtractionX.
+  # If empty, no global permission is required.
+  #
+  # Per-block permission overrides can be configured inside each rule in ores.yml.
+  # If a block-specific permission is missing or empty, this global permission is used instead.
   permission: "coreextractionx.use"
+
+  # What should happen when a player does not have the required permission?
+  #
+  # VANILLA = CoreExtractionX does nothing and the block breaks normally.
+  # DENY    = the block break is cancelled.
   no-permission-behavior: VANILLA
+
+  # What should happen when the player uses a Silk Touch tool?
+  #
+  # VANILLA = CoreExtractionX does nothing and vanilla handles the block break.
+  # DENY   = the block break is cancelled.
   silk-touch-behavior: VANILLA
 
 world-filter:
+  # DISABLED  = CoreExtractionX works in every world.
+  # WHITELIST = CoreExtractionX works only in the listed worlds.
+  # BLACKLIST = CoreExtractionX works in every world except the listed worlds.
   mode: DISABLED
+
   worlds: []
 
+  # Example:
+  # mode: BLACKLIST
+  # worlds:
+  #   - disabled_world
+  #   - creative_world
+
+  # Example:
+  # mode: WHITELIST
+  # worlds:
+  #   - world
+  #   - world_nether
+
+# Controls where CoreExtractionX manually spawns items.
 drop-spawn:
+  # HIT_FACE     = drops are spawned near the face of the block the player is looking at.
+  # BLOCK_CENTER = drops are spawned at the broken block center.
   mode: HIT_FACE
+
+  # Max raytrace distance used to find the block face.
   raytrace-distance: 6.0
+
+  # Offset applied from the block center toward the hit face.
   face-offset: 0.75
 
 replacement:
+  # Whether block physics should be applied when setting the replacement block.
+  # false is recommended to avoid unwanted block updates.
   apply-physics: false
 
 experience:
+  # In REPLACEMENT mode, CoreExtractionX cancels vanilla block breaking
+  # after reading the original vanilla XP. When enabled, it respawns that XP as orbs.
   preserve-vanilla-exp: true</code></pre>
-            <p>Global enum mistakes are fatal config errors. Valid values are documented in the generated file comments.</p>
+            <p>Global enum mistakes are fatal config errors. When that happens, extraction logic safe-disables but reload commands remain available.</p>
 
             <h2 id="ores-yml">5. <code>ores.yml</code></h2>
-            <p>Defines block extraction rules. Keys under <code>blocks:</code> are dynamic material names. Disabled rules are skipped before material validation so the included template can stay harmless.</p>
-            <pre class="code-block"><code>blocks:
+            <p>Complete bundled default for block extraction rules. Keys under <code>blocks:</code> are dynamic material names. Disabled rules are skipped before material validation so the included template can stay harmless.</p>
+            <pre class="code-block"><code># ============================================================
+# CoreExtractionX ore and block extraction rules
+# ============================================================
+#
+# This file controls which blocks CoreExtractionX handles when mined.
+# Global behavior defaults are configured in config.yml.
+# Player-facing messages are configured in messages.yml.
+#
+# Block keys are dynamic.
+# Any valid block material can be added here.
+#
+# Material names must be valid Bukkit/Paper Material enum names.
+# Block keys are read case-insensitively and should be lowercase by convention.
+#
+# Each enabled block rule uses one mode:
+#
+# REPLACEMENT:
+#   The mined source block is replaced in the world by another block.
+#   CoreExtractionX manually spawns the source block's natural drops.
+#
+# DROP:
+#   The mined source block breaks normally.
+#   CoreExtractionX adds an extra configured item drop after vanilla drops are generated.
+
+blocks:
+
+  # ------------------------------------------------------------
+  # Fully documented rule template
+  # ------------------------------------------------------------
+  # This template is intentionally disabled.
+  # Copy it when adding custom block rules.
+  # Replace "stone" with the source block material you want to handle.
+
+  stone:
+    enabled: false
+
+    # REPLACEMENT = replace the mined block in the world.
+    # DROP        = let the block break normally and add an extra replacement item drop.
+    mode: REPLACEMENT
+
+    # In REPLACEMENT mode, this must be a valid block material.
+    # In DROP mode, this must be a valid item material.
+    replacement: COBBLESTONE
+
+    # Optional.
+    # If set, this permission is required for this specific block.
+    # If missing or empty, settings.permission from config.yml is used instead.
+    # permission: "coreextractionx.extract.stone"
+
+    # Optional.
+    # If missing or empty, settings.silk-touch-behavior from config.yml is used instead.
+    # Valid values: VANILLA, DENY.
+    # silk-touch-behavior: VANILLA
+
+    # DROP-mode-only settings.
+    # Ignored in REPLACEMENT mode.
+    drop:
+      # FIXED          = always drops fixed-amount.
+      # RANDOM         = drops a random amount between min-amount and max-amount.
+      # MATCH_DROPS    = matches the correct generated drop quantity of the block, ignoring later extra plugin drops.
+      # MATCH_QUANTITY = matches the total quantity of all item drops currently present when CoreExtractionX calculates it.
+      amount-mode: FIXED
+
+      # Used only with FIXED.
+      # If missing, defaults to 1.
+      fixed-amount: 1
+
+      # Used only with RANDOM.
+      # min-amount may be 0.
+      # max-amount must be &gt;= 1 and &gt;= min-amount.
+      min-amount: 1
+      max-amount: 3
+
+      # Used only with RANDOM.
+      # If true, final amount = randomBaseAmount * max(1, fortuneLevel + 1).
+      fortune-multiplier: false
+
+      # Used only with RANDOM.
+      # 0 means no cap.
+      max-final-amount: 0
+
+  # ------------------------------------------------------------
+  # Overworld stone ores
+  # ------------------------------------------------------------
+
+  coal_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.coal_ore"
+    # silk-touch-behavior: VANILLA
+
+  copper_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.copper_ore"
+    # silk-touch-behavior: VANILLA
+
+  iron_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.iron_ore"
+    # silk-touch-behavior: VANILLA
+
+  gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  redstone_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.redstone_ore"
+    # silk-touch-behavior: VANILLA
+
+  lapis_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.lapis_ore"
+    # silk-touch-behavior: VANILLA
+
   diamond_ore:
     enabled: true
     mode: REPLACEMENT
     replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.diamond_ore"
+    # silk-touch-behavior: VANILLA
 
-  stone:
+  emerald_ore:
     enabled: true
-    mode: DROP
-    replacement: GRAVEL
-    drop:
-      amount-mode: FIXED
-      fixed-amount: 1</code></pre>
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.emerald_ore"
+    # silk-touch-behavior: VANILLA
+
+  # ------------------------------------------------------------
+  # Deepslate ores
+  # ------------------------------------------------------------
+
+  deepslate_coal_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_coal_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_copper_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_copper_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_iron_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_iron_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_redstone_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_redstone_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_lapis_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_lapis_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_diamond_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_diamond_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_emerald_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_emerald_ore"
+    # silk-touch-behavior: VANILLA
+
+  # ------------------------------------------------------------
+  # Nether ores
+  # ------------------------------------------------------------
+
+  nether_quartz_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: NETHERRACK
+    # permission: "coreextractionx.extract.nether_quartz_ore"
+    # silk-touch-behavior: VANILLA
+
+  nether_gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: NETHERRACK
+    # permission: "coreextractionx.extract.nether_gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  ancient_debris:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: BLACKSTONE
+    # permission: "coreextractionx.extract.ancient_debris"
+    # silk-touch-behavior: VANILLA</code></pre>
             <p><code>REPLACEMENT</code> requires a replacement block. <code>DROP</code> requires a replacement item. Invalid enabled rules are skipped with a specific warning and do not block valid rules.</p>
 
             <h2 id="messages-yml">6. <code>messages.yml</code></h2>
-            <p>Messages use Adventure MiniMessage. Plugin placeholders use <code>{name}</code> syntax to avoid conflicts with MiniMessage tags.</p>
-            <pre class="code-block"><code>reload-success: "&lt;green&gt;CoreExtractionX reloaded. Loaded {loaded} rules, skipped {skipped} invalid rules.&lt;/green&gt;"</code></pre>
+            <p>Complete bundled default for player-facing messages. Messages use Adventure MiniMessage, while plugin placeholders use <code>{name}</code> syntax to avoid conflicts with MiniMessage tags.</p>
+            <pre class="code-block"><code># CoreExtractionX messages.
+#
+# Messages use Adventure MiniMessage syntax.
+# Plugin placeholders use {name} syntax to avoid conflicts with MiniMessage tags.
+# Leave a message empty to disable it.
+
+no-permission: "&lt;red&gt;You cannot extract this block.&lt;/red&gt;"
+silk-touch-denied: "&lt;red&gt;You cannot mine this block with Silk Touch.&lt;/red&gt;"
+reload-success: "&lt;green&gt;CoreExtractionX reloaded. Loaded {loaded} rules, skipped {skipped} invalid rules.&lt;/green&gt;"
+reload-failed: "&lt;red&gt;CoreExtractionX reload failed. Extraction logic has been disabled. Check console for details.&lt;/red&gt;"
+command-no-permission: "&lt;red&gt;You do not have permission to reload CoreExtractionX.&lt;/red&gt;"
+help-main: "&lt;gray&gt;/coreextractionx reload&lt;/gray&gt;"
+help-alias: "&lt;gray&gt;/cex reload&lt;/gray&gt;"</code></pre>
             <p>Leave a message empty to disable it.</p>
 
             <h2 id="plugin-yml">7. <code>plugin.yml</code></h2>
+            <p>Complete bundled plugin descriptor. Maven resolves <code>${project.version}</code> when the release jar is built.</p>
             <pre class="code-block"><code>name: CoreExtractionX
 main: it.icewolf23x.coreextractionx.CoreExtractionX
-version: 2026.1.0
+version: ${project.version}
 api-version: '1.21'
+description: Config-driven block extraction and replacement rules for Paper.
+author: IceWolf23X
+prefix: CoreExtractionX
 commands:
   coreextractionx:
+    description: CoreExtractionX main command.
+    usage: /coreextractionx
     aliases:
       - cex
 permissions:
   coreextractionx.reload:
+    description: Allows reloading CoreExtractionX configuration.
     default: op
   coreextractionx.use:
+    description: Allows using CoreExtractionX extraction rules.
     default: true</code></pre>
 
             <h2 id="permissions">8. Permissions</h2>
