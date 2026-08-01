@@ -1,20 +1,23 @@
 # CoreExtractionX Website
 
-Static product website for CoreExtractionX, a Paper-only survival enhancement plugin with YAML-driven block extraction rules.
+Static GitHub Pages website for CoreExtractionX, a Paper plugin for YAML-driven block replacement and configurable extra drops.
 
-The site is built with plain HTML, CSS, JavaScript, and SVG/PNG assets.
+The site uses plain HTML, CSS, JavaScript, SVG, and PNG. FrameBaseCSS `1.2.0` supplies the theme and component foundation; Highlight.js `11.11.1` and the FrameBaseCSS addon highlight configuration examples. Released assets are pinned under `assets/vendor/`.
 
 ## Pages
 
-- `index.html`
-- `features.html`
-- `installation.html`
-- `configuration.html`
-- `docs.html`
-- `faq.html`
+- `index.html`: product overview.
+- `features.html`: extraction modes, drops, permissions, and safety.
+- `installation.html`: Paper installation and first startup.
+- `configuration.html`: global, rule, and message configuration.
+- `docs.html`: documentation hub.
+- `faq.html`: practical questions and troubleshooting.
+- `support-policy.html`: release and support policy.
 
-`configurations.html` redirects to `configuration.html` for compatibility.
+`configurations.html` remains a compatibility redirect to `configuration.html`.
 
-## Local Preview
+## Authoritative sources
 
-Open `index.html` directly in a browser or serve this directory with any static file server.
+Keep technical claims aligned with `../CoreExtractionX_Codex_Spec.md`, `../plugin/src/main/resources/`, `../plugin/src/main/resources/plugin.yml`, and current tests/source where the specification is incomplete.
+
+Backups named `CoreExtractionX-website-*-backup-*.zip` are local recovery artifacts and must not be published.

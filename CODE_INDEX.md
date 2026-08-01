@@ -1,0 +1,25 @@
+# CoreExtractionX Website Code Index
+
+## Public pages
+
+- `index.html` — Landing page and public product summary.
+- `features.html` — Replacement/drop modes, permissions, drop handling, and safety overview.
+- `installation.html` — Paper requirements, installation, first startup, and setup checks.
+- `configuration.html` — Global settings, extraction rules, messages, commands, and permissions.
+- `configurations.html` — Legacy redirect to `configuration.html`.
+- `docs.html` — Documentation entry point.
+- `faq.html` — Common mining, drop, permission, and troubleshooting questions.
+- `support-policy.html` — Public release and support policy.
+
+## Shared assets and contracts
+
+- `assets/coreextractionx-logo.svg` — Official header, footer, and favicon logo.
+- `assets/coreextractionx-logo.png` — Raster distribution copy of the official logo.
+- `assets/vendor/framebasecss/` — Unmodified pinned FrameBaseCSS 1.2.0 distribution and license.
+- `assets/vendor/highlightjs/` — Pinned Highlight.js 11.11.1 browser distribution and license.
+- `assets/styles.css` — Shared CoreX layout compositions built on FrameBaseCSS tokens.
+- `assets/site.js` — Responsive navigation and syntax-highlighting initialization.
+- `.gitignore` — Excludes local website backup archives from publication.
+- `README.md` — Site technology, page map, authoritative content sources, and backup policy.
+
+Build output and `.git/` are intentionally excluded from this index.
