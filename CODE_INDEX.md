@@ -2,7 +2,7 @@
 
 ## Public pages
 
-- `index.html` — Landing page and public product summary.
+- `index.html` — Landing page, public product summary, and links to the other five CoreX plugins.
 - `features.html` — Replacement/drop modes, permissions, drop handling, and safety overview.
 - `installation.html` — Paper requirements, installation, first startup, and setup checks.
 - `configuration.html` — Global settings, extraction rules, messages, commands, and permissions.
