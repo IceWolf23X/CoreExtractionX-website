@@ -6,7 +6,7 @@ The site uses plain HTML, CSS, JavaScript, SVG, and PNG. FrameBaseCSS `1.2.0` su
 
 ## Pages
 
-- `index.html`: product overview.
+- `index.html`: product overview, live bStats badges and graph, and related CoreX plugins.
 - `features.html`: extraction modes, drops, permissions, and safety.
 - `installation.html`: Paper installation and first startup.
 - `configuration.html`: global, rule, and message configuration.
