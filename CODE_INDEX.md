@@ -6,7 +6,6 @@
 - `features.html` — Replacement and drop modes, permissions, drop handling, and safety.
 - `installation.html` — Paper requirements, installation, first startup, and setup checks.
 - `configuration.html` — Global settings, extraction rules, messages, commands, and permissions.
-- `configurations.html` — Redirect from the plural configuration URL.
 - `docs.html` — Documentation entry point.
 - `faq.html` — Common mining, drop, permission, and troubleshooting questions.
 - `support-policy.html` — Release and support policy.
