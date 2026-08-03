@@ -27,7 +27,7 @@
 <header class="fb-doc-header corex-page-hero"><div class="fb-container fb-container--wide"><p class="fb-eyebrow">Complete configuration reference</p><h1>Configuration Reference</h1><p>Complete CoreExtractionX YAML references, first setup path, reload boundaries, runtime model, permissions, troubleshooting, and production checks.</p></div></header>
 <section class="fb-section">
 <div class="fb-container fb-container--wide fb-doc-shell corex-doc-shell">
-<aside aria-label="Page contents" class="fb-doc-sidebar fb-doc-nav-panel corex-toc"><strong>Contents</strong><a href="#before-you-configure">0. Before You Configure</a><a href="#first-setup-flow">1. First Setup Flow</a><a href="#which-file-to-edit">2. Which File To Edit</a><a href="#file-layout">File Layout</a><a href="#reload-vs-restart">3. Reload vs Restart</a><a href="#runtime-model">4. Runtime Model</a><a href="#common-starter-changes">5. Common Starter Changes</a><a href="#config-yml">6. config.yml</a><a href="#ores-yml">7. ores.yml</a><a href="#messages-yml">8. messages.yml</a><a href="#plugin-yml">9. plugin.yml</a><a href="#permissions">10. Permissions</a><a href="#troubleshooting-quick-reference">11. Troubleshooting</a><a href="#production-validation-checklist">12. Production Checklist</a></aside>
+<aside aria-label="Page contents" class="fb-doc-sidebar fb-doc-nav-panel corex-toc"><strong>Contents</strong><a href="#before-you-configure">0. Before You Configure</a><a href="#first-setup-flow">1. First Setup Flow</a><a href="#which-file-to-edit">2. Which File To Edit</a><a href="#file-layout">File Layout</a><a href="#reload-vs-restart">3. Reload vs Restart</a><a href="#runtime-model">4. Runtime Model</a><a href="#common-starter-changes">5. Common Starter Changes</a><a href="#config-yml">6. config.yml</a><a href="#ores-yml">7. ores.yml</a><a href="#messages-yml">8. messages.yml</a><a href="#permissions">9. Permissions</a><a href="#troubleshooting-quick-reference">10. Troubleshooting</a><a href="#production-validation-checklist">11. Production Checklist</a></aside>
 <article class="fb-doc-main fb-doc-content">
 <h2 id="before-you-configure">0. Before You Configure</h2>
 <p>Minimum requirements are Paper 1.21.11+, Java 21+, and CoreExtractionX installed on a Paper server. Configure and test extraction rules on a staging world before enabling broad custom behavior on a live server.</p>
@@ -35,16 +35,14 @@
 <h2 id="first-setup-flow">1. First Setup Flow</h2>
 <ol><li>Stop the server and place the CoreExtractionX jar in the server <code>plugins</code> folder.</li><li>Start the server once so CoreExtractionX generates <code>config.yml</code>, <code>ores.yml</code>, and <code>messages.yml</code>.</li><li>Join a staging world and mine a default ore before editing anything. This confirms the jar, Paper version, Java version, and permissions are working.</li><li>Edit <code>ores.yml</code> first when you want to change what happens to mined blocks.</li><li>Edit <code>config.yml</code> only when you need global permission behavior, Silk Touch behavior, world filtering, drop spawn behavior, replacement physics, or XP preservation.</li><li>Edit <code>messages.yml</code> only when you want to change command and status messages.</li><li>Run <code>/cex reload</code> or <code>/coreextractionx reload</code>.</li><li>Check the reload message and server console for loaded/skipped rule counts and warnings.</li><li>Test with a normal tool, a Silk Touch tool, a non-op player, and a protected region if your server uses protection plugins.</li></ol>
 <h2 id="which-file-to-edit">2. Which File To Edit</h2>
-<ul><li><code>ores.yml</code> is the main file for day-to-day setup. Use it for source blocks, replacement blocks/items, extraction mode, DROP amounts, optional per-rule permissions, and optional per-rule Silk Touch behavior.</li><li><code>config.yml</code> is for global runtime behavior. Settings here affect every rule unless a rule explicitly overrides the relevant option.</li><li><code>messages.yml</code> is for text shown by the plugin. MiniMessage tags use angle brackets, while CoreExtractionX placeholders use braces such as <code>{loaded}</code> and <code>{skipped}</code>.</li><li><code>plugin.yml</code> is bundled inside the jar. It is useful as a reference for commands, aliases, permissions, and plugin metadata, but it is not a file you edit in the server plugin folder.</li></ul>
+<ul><li><code>ores.yml</code> is the main file for day-to-day setup. Use it for source blocks, replacement blocks/items, extraction mode, DROP amounts, optional per-rule permissions, and optional per-rule Silk Touch behavior.</li><li><code>config.yml</code> is for global runtime behavior. Settings here affect every rule unless a rule explicitly overrides the relevant option.</li><li><code>messages.yml</code> is for text shown by the plugin. MiniMessage tags use angle brackets, while CoreExtractionX placeholders use braces such as <code>{loaded}</code> and <code>{skipped}</code>.</li></ul>
 <h2 id="file-layout">File Layout</h2>
 <div class="fb-code-block"><pre><code class="language-yaml">plugins/CoreExtractionX/
   config.yml
   ores.yml
   messages.yml
-
-inside CoreExtractionX jar:
-  plugin.yml</code></pre></div>
-<p><code>config.yml</code>, <code>ores.yml</code>, and <code>messages.yml</code> are generated under the plugin data folder. <code>plugin.yml</code> is bundled inside the jar and documents commands, aliases, permissions, and plugin identity.</p>
+</code></pre></div>
+<p><code>config.yml</code>, <code>ores.yml</code>, and <code>messages.yml</code> are generated under the plugin data folder.</p>
 <h2 id="reload-vs-restart">3. Reload vs Restart</h2>
 <p>Use <code>/coreextractionx reload</code> or <code>/cex reload</code> for normal YAML edits. Restart when replacing the jar, changing Paper/Minecraft version, or validating a clean boot.</p>
 <p>Fatal global enum errors safe-disable extraction logic, but reload commands remain available so the config can be fixed without a full restart.</p>
@@ -408,37 +406,14 @@ command-no-permission: "&lt;red&gt;You do not have permission to reload CoreExtr
 help-main: "&lt;gray&gt;/coreextractionx reload&lt;/gray&gt;"
 help-alias: "&lt;gray&gt;/cex reload&lt;/gray&gt;"</code></pre></div>
 <p>Leave a message empty to disable it.</p>
-<h2 id="plugin-yml">9. <code>plugin.yml</code></h2>
-<p>Complete bundled plugin descriptor. Maven resolves <code>${project.version}</code> when the release jar is built.</p>
-<p>This descriptor is packaged inside the jar and should be treated as read-only by server owners.</p>
-<div class="fb-code-block"><pre><code class="language-yaml">name: CoreExtractionX
-main: it.icewolf23x.coreextractionx.CoreExtractionX
-version: ${project.version}
-api-version: '1.21'
-description: Config-driven block extraction and replacement rules for Paper.
-author: IceWolf23X
-prefix: CoreExtractionX
-commands:
-  coreextractionx:
-    description: CoreExtractionX main command.
-    usage: /coreextractionx
-    aliases:
-      - cex
-permissions:
-  coreextractionx.reload:
-    description: Allows reloading CoreExtractionX configuration.
-    default: op
-  coreextractionx.use:
-    description: Allows using CoreExtractionX extraction rules.
-    default: true</code></pre></div>
-<h2 id="permissions">10. Permissions</h2>
+<h2 id="permissions">9. Permissions</h2>
 <div class="fb-code-block"><pre><code class="language-yaml">coreextractionx.reload
 coreextractionx.use
 coreextractionx.extract.&lt;block&gt;   # optional per-rule example</code></pre></div>
-<p><code>coreextractionx.reload</code> is operator-only by default. <code>coreextractionx.use</code> is the default global runtime permission and is declared with <code>default: true</code> in <code>plugin.yml</code>. If your server uses a permission plugin such as LuckPerms, assign or deny it there as needed.</p>
-<p>Per-rule permissions configured in <code>ores.yml</code> are optional and do not need to be predeclared in <code>plugin.yml</code>. If a rule does not define a permission, CoreExtractionX falls back to <code>settings.permission</code> in <code>config.yml</code>. If the resolved permission is blank, no permission is required.</p>
+<p><code>coreextractionx.reload</code> is operator-only by default. <code>coreextractionx.use</code> is the default global runtime permission and is enabled for players by default. If your server uses a permission plugin such as LuckPerms, assign or deny it there as needed.</p>
+<p>Per-rule permissions configured in <code>ores.yml</code> are optional and can be assigned directly through the server permission manager. If a rule does not define a permission, CoreExtractionX falls back to <code>settings.permission</code> in <code>config.yml</code>. If the resolved permission is blank, no permission is required.</p>
 <p><code>no-permission-behavior: VANILLA</code> makes unauthorized mining behave like normal Minecraft. <code>DENY</code> cancels the block break instead.</p>
-<h2 id="troubleshooting-quick-reference">11. Troubleshooting Quick Reference</h2>
+<h2 id="troubleshooting-quick-reference">10. Troubleshooting Quick Reference</h2>
 <h3>No files generated</h3>
 <ul><li>Confirm the jar is in the server <code>plugins</code> folder.</li><li>Confirm the server is running Paper 1.21.11+ on Java 21+.</li><li>Check the startup log for plugin load errors.</li></ul>
 <h3>Command works but extraction is disabled</h3>
