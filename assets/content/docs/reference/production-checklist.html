@@ -1,0 +1,18 @@
+<h2 id="production-validation-checklist">Production validation checklist</h2>
+<ul>
+<li>Back up <code>config.yml</code>, <code>ores.yml</code> and <code>messages.yml</code>.</li>
+<li>Boot Java 21 and supported Paper without load errors.</li>
+<li>Run <code>/cex reload</code>; verify loaded/skipped counts and every warning.</li>
+<li>Mine one normal, one deepslate and one Nether default rule.</li>
+<li>Test Ancient Debris if it is enabled in the server's policy.</li>
+<li>Test a custom REPLACEMENT rule with correct, wrong, Fortune and Silk Touch tools.</li>
+<li>Test DROP with FIXED, RANDOM, MATCH_DROPS and MATCH_QUANTITY where used.</li>
+<li>Verify RANDOM multiplier and cap boundaries.</li>
+<li>Test HIT_FACE fallback and BLOCK_CENTER.</li>
+<li>Test a non-op player with global permission, per-rule override, VANILLA fallback and DENY fallback.</li>
+<li>Test DISABLED, WHITELIST and BLACKLIST world filters, including an empty whitelist.</li>
+<li>Test <code>replacement.apply-physics</code> only where surrounding updates are understood.</li>
+<li>Verify XP preservation on and off in REPLACEMENT.</li>
+<li>Test every protection/custom-drop plugin that changes break or drop events and confirm event ordering.</li>
+<li>Restart once after replacing the JAR and repeat one representative rule.</li>
+</ul>

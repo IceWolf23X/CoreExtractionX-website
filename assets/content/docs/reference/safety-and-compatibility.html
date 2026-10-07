@@ -1,0 +1,13 @@
+<h2 id="event-ordering">Event ordering</h2>
+<p>The break listener runs at <code>HIGHEST</code> with <code>ignoreCancelled=true</code>. CoreExtractionX does nothing when another plugin has already cancelled the event. A plugin that cancels or mutates later can still interact with the result; “protection friendly” is an ordering contract, not a universal compatibility guarantee.</p>
+<p>DROP mode captures initial generated items at <code>BlockDropItemEvent LOWEST</code> and applies the extra item at <code>HIGHEST</code>, both ignoring cancelled events.</p>
+<h2 id="pending-drop-correlation">Pending DROP correlation</h2>
+<p>The key combines world, block coordinates and player UUID. Context is removed during the matching drop event or on the next scheduler tick. This bounds stale state but means no matching event produces no extra drop.</p>
+<h2 id="replacement-safety">REPLACEMENT safety</h2>
+<ul><li>Same-source and AIR replacements are rejected.</li><li>Natural drops are calculated before the source is replaced.</li><li>The main-hand tool is damaged once after replacement.</li><li>Captured XP is spawned only when enabled.</li><li>No valid-tool gate exists; staging tests must include wrong tools.</li></ul>
+<h2 id="drop-safety">DROP safety</h2>
+<ul><li>Replacement must be an item.</li><li>Nonpositive calculated amounts spawn nothing.</li><li>Large amounts split by material maximum stack size.</li><li>Original break, durability, original drops and XP remain vanilla.</li></ul>
+<h2 id="world-and-gamemode-scope">World and game-mode scope</h2>
+<p>Only SURVIVAL players in allowed worlds are considered. Creative, Adventure and Spectator remain vanilla. World matching is case-insensitive.</p>
+<h2 id="compatibility-boundary">Compatibility boundary</h2>
+<p>CoreExtractionX has no hard protection-plugin hook. Validate every protection, custom-drop, enchantment or block-management plugin that touches the same events on a staging server.</p>

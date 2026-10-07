@@ -1,0 +1,31 @@
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Paper 1.21.11 or newer.</li>
+<li>Java 21.</li>
+<li>The current <code>CoreExtractionX-2026.1.1.jar</code> from <a href="https://modrinth.com/plugin/coreextractionx" rel="noopener noreferrer" target="_blank">Modrinth</a>.</li>
+</ul>
+<h2 id="download">Download</h2>
+<p>Modrinth is the public download source. The current 2026.1.1 file is classified as beta; validate it on a staging world before production use.</p>
+<h2 id="install">Installation</h2>
+<ol>
+<li>Stop the Paper server.</li>
+<li>Back up an existing <code>plugins/CoreExtractionX/</code> folder.</li>
+<li>Place the JAR in the server <code>plugins/</code> directory.</li>
+<li>Start once and inspect the console for config errors and loaded/skipped rule counts.</li>
+</ol>
+<h2 id="generated-files">Generated files</h2>
+<pre><code class="language-text">plugins/CoreExtractionX/
+  config.yml
+  ores.yml
+  messages.yml</code></pre>
+<h2 id="first-test">First tests</h2>
+<ol>
+<li>Mine normal coal ore without Silk Touch and confirm the configured cobblestone replacement.</li>
+<li>Mine a deepslate ore and confirm cobbled deepslate.</li>
+<li>Mine Nether quartz ore and confirm netherrack.</li>
+<li>Test Silk Touch; the bundled <code>VANILLA</code> policy should bypass extraction.</li>
+<li>Temporarily add one DROP rule and test a fixed amount.</li>
+<li>Use a non-op player and a protected region before enabling broad rules.</li>
+</ol>
+<h2 id="validation">Validation boundary</h2>
+<p>The plugin logs a warning rather than hard-disabling itself solely because the reported Minecraft version is older than 1.21.11. Treat 1.21.11+ as the supported target.</p>

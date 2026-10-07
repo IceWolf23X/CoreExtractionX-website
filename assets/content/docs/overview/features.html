@@ -1,0 +1,12 @@
+<h2 id="core-design">Core design</h2>
+<p>CoreExtractionX evaluates only enabled, valid rules for survival players in allowed worlds. Unconfigured blocks, non-survival players and denied worlds retain vanilla behavior.</p>
+<h2 id="rules">Dynamic rules</h2>
+<p>Every child of <code>blocks</code> in <code>ores.yml</code> is a material-name rule. Source names are read case-insensitively. Invalid enabled rules are skipped with specific warnings while valid rules continue loading.</p>
+<h2 id="permissions">Permission fallback</h2>
+<p>A nonblank rule permission overrides the global permission. Without an override, <code>settings.permission</code> applies. A blank resolved permission means unrestricted. Missing permission can leave the break vanilla or deny it.</p>
+<h2 id="silk-touch">Silk Touch fallback</h2>
+<p>A rule override wins over the global setting. <code>VANILLA</code> makes CoreExtractionX do nothing; <code>DENY</code> cancels and sends the configured message.</p>
+<h2 id="drops">Drop positioning and amounts</h2>
+<p>Manual drops can use block center or the face a player is actually ray-tracing. Face mode falls back to center if the trace does not identify that source block and face. Extra item amounts support fixed, random, initial-generated and current-event quantities.</p>
+<h2 id="scope">Safety scope</h2>
+<p>Break and drop listeners use <code>ignoreCancelled=true</code>. CoreExtractionX stays out only when another plugin has cancelled before the relevant handler. It does not promise compatibility with plugins that mutate or cancel the same event later.</p>

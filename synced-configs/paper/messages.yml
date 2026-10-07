@@ -1,0 +1,13 @@
+# CoreExtractionX messages.
+#
+# Messages use Adventure MiniMessage syntax.
+# Plugin placeholders use {name} syntax to avoid conflicts with MiniMessage tags.
+# Leave a message empty to disable it.
+
+no-permission: "<red>You cannot extract this block.</red>"
+silk-touch-denied: "<red>You cannot mine this block with Silk Touch.</red>"
+reload-success: "<green>CoreExtractionX reloaded. Loaded {loaded} rules, skipped {skipped} invalid rules.</green>"
+reload-failed: "<red>CoreExtractionX reload failed. Extraction logic has been disabled. Check console for details.</red>"
+command-no-permission: "<red>You do not have permission to reload CoreExtractionX.</red>"
+help-main: "<gray>/coreextractionx reload</gray>"
+help-alias: "<gray>/cex reload</gray>"

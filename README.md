@@ -1,23 +1,35 @@
-# CoreExtractionX Website
+# CoreExtractionX website
 
-Static GitHub Pages website for CoreExtractionX, a Paper plugin for YAML-driven block replacement and configurable extra drops.
+Static, data-driven CoreX website for CoreExtractionX 2026.1.1. The landing page, routed wiki, offline reference, configuration snapshots and public release view share the current CoreX family theme while keeping CoreExtractionX identity and documentation in product-owned data files.
 
-<https://icewolf23x.github.io/CoreExtractionX-website/>
+- Canonical site: <https://wiki-coreextractionx.icewolf23x.dev/>
+- Download: <https://modrinth.com/plugin/coreextractionx>
+- Issues: <https://github.com/IceWolf23X/CoreExtractionX-issues/issues>
 
-## Pages
+## Local content workflow
 
-- `index.html`: product overview, live bStats data, and related CoreX plugins.
-- `features.html`: extraction modes, drops, permissions, and safety.
-- `installation.html`: requirements, installation, and first setup.
-- `configuration.html`: global, rule, and message configuration.
-- `docs.html`: documentation hub.
-- `faq.html`: common questions and troubleshooting.
-- `support-policy.html`: release and support policy.
+From this directory:
 
-## Technology
+```powershell
+node tools/sync-plugin-configs.mjs ../plugin .
+node tools/build-config-bundle.mjs .
+node tools/build-docs-bundle.mjs .
+node tests/validate-theme.mjs
+node --test tests/*.test.mjs tests/*.test.cjs
+```
 
-The site uses plain HTML, CSS, JavaScript, SVG, and PNG. FrameBaseCSS `1.2.0` provides the layout and components. Highlight.js `11.11.1` highlights configuration examples. Required browser assets are stored under `assets/vendor/`.
+The sync command copies only the three allow-listed defaults from `../plugin/src/main/resources/`, normalizes published text to LF, and records source repository/ref/commit provenance. It never reads runtime server data or archives. Article prose lives under `assets/content/docs/`; `docs-content.js` contains only catalog metadata and source paths.
 
-## Local preview
+## Editing map
 
-Serve the repository root with a static HTTP server and open `index.html`.
+- `assets/js/data/site-config.js`: public identity, links, logo, palette and release repository.
+- `assets/js/data/landing-content.js`: landing sections and product copy.
+- `assets/js/data/docs-content.js`: documentation catalog and navigation hints.
+- `assets/content/docs/**/*.html`: independently editable article prose.
+- `tools/config-sync-map.mjs`: three-file public default allow-list.
+- `assets/js/legacy-routes.js` and legacy root HTML: old URL/bookmark compatibility.
+- `SETUP.md`: complete local, sync and validation workflow.
+
+The primary Download action uses Modrinth. The GitHub Releases view reads public releases from `IceWolf23X/CoreExtractionX-website` and may accurately show an empty catalog. No token is exposed to the browser.
+
+Do not publish or link the private plugin descriptor, server data, credentials or private repository content. Optional private-source automation remains disabled until a repository-scoped read token is configured by the repository owner.

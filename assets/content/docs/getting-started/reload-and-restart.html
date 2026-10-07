@@ -1,0 +1,8 @@
+<h2 id="reload-vs-restart">Normal reload</h2>
+<p>Use <code>/coreextractionx reload</code> or <code>/cex reload</code> after edits to <code>config.yml</code>, <code>ores.yml</code> or <code>messages.yml</code>. The success message reports loaded and skipped rule counts.</p>
+<h2 id="safe-disabled-recovery">Safe-disabled recovery</h2>
+<p>An invalid global enum in no-permission behavior, Silk Touch behavior, world-filter mode or drop-spawn mode safe-disables extraction. The command remains registered: fix the value and reload. Invalid enabled block rules are skipped individually and do not disable valid rules.</p>
+<h2 id="restart-required">Restart required</h2>
+<ul><li>Replacing the JAR.</li><li>Changing Paper/Minecraft version.</li><li>Validating a clean boot after major operational changes.</li></ul>
+<h2 id="backup">Backup</h2>
+<p>Copy all three YAML files before a large ruleset edit. There is no database or data migration, but an incorrect rule can materially change mined blocks, drops, XP and tool durability.</p>

@@ -1,0 +1,60 @@
+{
+  "configuration.html": [
+    "site-navigation",
+    "main",
+    "before-you-configure",
+    "first-setup-flow",
+    "which-file-to-edit",
+    "file-layout",
+    "reload-vs-restart",
+    "runtime-model",
+    "common-starter-changes",
+    "config-yml",
+    "ores-yml",
+    "messages-yml",
+    "permissions",
+    "troubleshooting-quick-reference",
+    "production-validation-checklist"
+  ],
+  "docs.html": [
+    "site-navigation",
+    "main"
+  ],
+  "faq.html": [
+    "site-navigation",
+    "main"
+  ],
+  "features.html": [
+    "site-navigation",
+    "main",
+    "core-design",
+    "replacement",
+    "drop",
+    "rules",
+    "permissions",
+    "silk-touch",
+    "drops",
+    "scope"
+  ],
+  "installation.html": [
+    "site-navigation",
+    "main",
+    "requirements",
+    "download",
+    "install",
+    "generated-files",
+    "reload",
+    "first-test",
+    "validation"
+  ],
+  "support-policy.html": [
+    "site-navigation",
+    "main",
+    "release-channels",
+    "supporter-preview-builds",
+    "critical-fix-policy",
+    "paid-memberships",
+    "discord-authentication",
+    "disclaimer"
+  ]
+}

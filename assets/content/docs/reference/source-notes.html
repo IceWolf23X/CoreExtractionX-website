@@ -1,0 +1,12 @@
+<h2 id="scope">Documentation scope</h2>
+<p>This reference was rebuilt from the clean <code>CoreExtractionX/plugin</code> checkout at commit <code>3df254fb96414c6a5c13596cbc5f7452aa9129b8</code>, version <code>2026.1.1</code>. It covers project-owned source, tests, build metadata and bundled defaults. It does not inspect server data or archived plugin ZIPs.</p>
+<h2 id="public-links">Public links</h2>
+<ul>
+<li><a href="https://modrinth.com/plugin/coreextractionx" rel="noopener noreferrer" target="_blank">Modrinth download</a></li>
+<li><a href="https://github.com/IceWolf23X/CoreExtractionX-issues/issues" rel="noopener noreferrer" target="_blank">GitHub Issues</a></li>
+<li><a href="https://wiki-coreextractionx.icewolf23x.dev/" rel="noopener noreferrer" target="_blank">Canonical wiki</a></li>
+</ul>
+<h2 id="metadata-and-runtime-notes">Metadata and runtime notes</h2>
+<ul><li><code>config-version</code> is bundled but not read by current Java source.</li><li><code>settings.debug</code> logs enablement but does not activate another observed debug behavior.</li><li>The runtime version check warns below 1.21.11 rather than disabling the plugin.</li><li>Modrinth metadata currently lists earlier 1.21 versions, while the verified supported target and build API are 1.21.11+.</li></ul>
+<h2 id="verification-limits">Verification limits</h2>
+<p>Source inspection and unit tests describe core parsing, amount, permission, stack-splitting and pending-drop contracts. A server owner must still validate real event ordering, protection plugins, tools, drops and world behavior on the exact Paper build used in production.</p>

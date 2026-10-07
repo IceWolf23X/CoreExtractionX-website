@@ -1,0 +1,225 @@
+# ============================================================
+# CoreExtractionX ore and block extraction rules
+# ============================================================
+#
+# This file controls which blocks CoreExtractionX handles when mined.
+# Global behavior defaults are configured in config.yml.
+# Player-facing messages are configured in messages.yml.
+#
+# Block keys are dynamic.
+# Any valid block material can be added here.
+#
+# Material names must be valid Bukkit/Paper Material enum names.
+# Block keys are read case-insensitively and should be lowercase by convention.
+#
+# Each enabled block rule uses one mode:
+#
+# REPLACEMENT:
+#   The mined source block is replaced in the world by another block.
+#   CoreExtractionX manually spawns the source block's natural drops.
+#
+# DROP:
+#   The mined source block breaks normally.
+#   CoreExtractionX adds an extra configured item drop after vanilla drops are generated.
+
+blocks:
+
+  # ------------------------------------------------------------
+  # Fully documented rule template
+  # ------------------------------------------------------------
+  # This template is intentionally disabled.
+  # Copy it when adding custom block rules.
+  # Replace "stone" with the source block material you want to handle.
+
+  stone:
+    enabled: false
+
+    # REPLACEMENT = replace the mined block in the world.
+    # DROP        = let the block break normally and add an extra replacement item drop.
+    mode: REPLACEMENT
+
+    # In REPLACEMENT mode, this must be a valid block material.
+    # In DROP mode, this must be a valid item material.
+    replacement: COBBLESTONE
+
+    # Optional.
+    # If set, this permission is required for this specific block.
+    # If missing or empty, settings.permission from config.yml is used instead.
+    # permission: "coreextractionx.extract.stone"
+
+    # Optional.
+    # If missing or empty, settings.silk-touch-behavior from config.yml is used instead.
+    # Valid values: VANILLA, DENY.
+    # silk-touch-behavior: VANILLA
+
+    # DROP-mode-only settings.
+    # Ignored in REPLACEMENT mode.
+    drop:
+      # FIXED          = always drops fixed-amount.
+      # RANDOM         = drops a random amount between min-amount and max-amount.
+      # MATCH_DROPS    = matches the correct generated drop quantity of the block, ignoring later extra plugin drops.
+      # MATCH_QUANTITY = matches the total quantity of all item drops currently present when CoreExtractionX calculates it.
+      amount-mode: FIXED
+
+      # Used only with FIXED.
+      # If missing, defaults to 1.
+      fixed-amount: 1
+
+      # Used only with RANDOM.
+      # min-amount may be 0.
+      # max-amount must be >= 1 and >= min-amount.
+      min-amount: 1
+      max-amount: 3
+
+      # Used only with RANDOM.
+      # If true, final amount = randomBaseAmount * max(1, fortuneLevel + 1).
+      fortune-multiplier: false
+
+      # Used only with RANDOM.
+      # 0 means no cap.
+      max-final-amount: 0
+
+  # ------------------------------------------------------------
+  # Overworld stone ores
+  # ------------------------------------------------------------
+
+  coal_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.coal_ore"
+    # silk-touch-behavior: VANILLA
+
+  copper_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.copper_ore"
+    # silk-touch-behavior: VANILLA
+
+  iron_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.iron_ore"
+    # silk-touch-behavior: VANILLA
+
+  gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  redstone_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.redstone_ore"
+    # silk-touch-behavior: VANILLA
+
+  lapis_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.lapis_ore"
+    # silk-touch-behavior: VANILLA
+
+  diamond_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.diamond_ore"
+    # silk-touch-behavior: VANILLA
+
+  emerald_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLESTONE
+    # permission: "coreextractionx.extract.emerald_ore"
+    # silk-touch-behavior: VANILLA
+
+  # ------------------------------------------------------------
+  # Deepslate ores
+  # ------------------------------------------------------------
+
+  deepslate_coal_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_coal_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_copper_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_copper_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_iron_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_iron_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_redstone_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_redstone_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_lapis_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_lapis_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_diamond_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_diamond_ore"
+    # silk-touch-behavior: VANILLA
+
+  deepslate_emerald_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: COBBLED_DEEPSLATE
+    # permission: "coreextractionx.extract.deepslate_emerald_ore"
+    # silk-touch-behavior: VANILLA
+
+  # ------------------------------------------------------------
+  # Nether ores
+  # ------------------------------------------------------------
+
+  nether_quartz_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: NETHERRACK
+    # permission: "coreextractionx.extract.nether_quartz_ore"
+    # silk-touch-behavior: VANILLA
+
+  nether_gold_ore:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: NETHERRACK
+    # permission: "coreextractionx.extract.nether_gold_ore"
+    # silk-touch-behavior: VANILLA
+
+  ancient_debris:
+    enabled: true
+    mode: REPLACEMENT
+    replacement: BLACKSTONE
+    # permission: "coreextractionx.extract.ancient_debris"
+    # silk-touch-behavior: VANILLA

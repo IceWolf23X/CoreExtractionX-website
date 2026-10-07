@@ -1,0 +1,77 @@
+# ============================================================
+# CoreExtractionX configuration
+# ============================================================
+#
+# This file contains only global runtime settings.
+# Edit ores.yml for block extraction rules.
+# Edit messages.yml for player-facing messages.
+
+config-version: 1
+
+settings:
+  enabled: true
+  debug: false
+
+  # CoreExtractionX only runs for SURVIVAL players.
+  # This is intentionally not configurable in v1.
+
+  # Global permission required to use CoreExtractionX.
+  # If empty, no global permission is required.
+  #
+  # Per-block permission overrides can be configured inside each rule in ores.yml.
+  # If a block-specific permission is missing or empty, this global permission is used instead.
+  permission: "coreextractionx.use"
+
+  # What should happen when a player does not have the required permission?
+  #
+  # VANILLA = CoreExtractionX does nothing and the block breaks normally.
+  # DENY    = the block break is cancelled.
+  no-permission-behavior: VANILLA
+
+  # What should happen when the player uses a Silk Touch tool?
+  #
+  # VANILLA = CoreExtractionX does nothing and vanilla handles the block break.
+  # DENY   = the block break is cancelled.
+  silk-touch-behavior: VANILLA
+
+world-filter:
+  # DISABLED  = CoreExtractionX works in every world.
+  # WHITELIST = CoreExtractionX works only in the listed worlds.
+  # BLACKLIST = CoreExtractionX works in every world except the listed worlds.
+  mode: DISABLED
+
+  worlds: []
+
+  # Example:
+  # mode: BLACKLIST
+  # worlds:
+  #   - disabled_world
+  #   - creative_world
+
+  # Example:
+  # mode: WHITELIST
+  # worlds:
+  #   - world
+  #   - world_nether
+
+# Controls where CoreExtractionX manually spawns items.
+drop-spawn:
+  # HIT_FACE     = drops are spawned near the face of the block the player is looking at.
+  # BLOCK_CENTER = drops are spawned at the broken block center.
+  mode: HIT_FACE
+
+  # Max raytrace distance used to find the block face.
+  raytrace-distance: 6.0
+
+  # Offset applied from the block center toward the hit face.
+  face-offset: 0.75
+
+replacement:
+  # Whether block physics should be applied when setting the replacement block.
+  # false is recommended to avoid unwanted block updates.
+  apply-physics: false
+
+experience:
+  # In REPLACEMENT mode, CoreExtractionX cancels vanilla block breaking
+  # after reading the original vanilla XP. When enabled, it respawns that XP as orbs.
+  preserve-vanilla-exp: true

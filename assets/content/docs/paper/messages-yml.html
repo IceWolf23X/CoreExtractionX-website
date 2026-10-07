@@ -1,0 +1,16 @@
+<h2 id="purpose">Purpose</h2>
+<p><code>messages.yml</code> contains all current player and command text. Values use Adventure MiniMessage. Leave a value blank to suppress that message.</p>
+<h2 id="current-bundled-default">Current bundled default</h2>
+<div class="config-file-mount" data-config-file="paper/messages.yml"></div>
+<h2 id="keys">Complete key reference</h2>
+<div class="table-scroll" role="region" tabindex="0"><table><thead><tr><th>Path</th><th>Use</th></tr></thead><tbody>
+<tr><td><code>no-permission</code></td><td>Sent when extraction is denied by the configured permission policy.</td></tr>
+<tr><td><code>silk-touch-denied</code></td><td>Sent when the effective Silk Touch policy is DENY.</td></tr>
+<tr><td><code>reload-success</code></td><td>Successful reload; supports <code>{loaded}</code> and <code>{skipped}</code>.</td></tr>
+<tr><td><code>reload-failed</code></td><td>Reload left extraction safe-disabled because a fatal global enum was invalid.</td></tr>
+<tr><td><code>command-no-permission</code></td><td>Missing <code>coreextractionx.reload</code>.</td></tr>
+<tr><td><code>help-main</code></td><td>Main command help line.</td></tr>
+<tr><td><code>help-alias</code></td><td>Alias help line.</td></tr>
+</tbody></table></div>
+<h2 id="placeholder-safety">Placeholder scope</h2>
+<p>The current replacement values are numeric loaded/skipped counts. Do not invent placeholders that the plugin does not supply. MiniMessage parsing happens after placeholder replacement.</p>

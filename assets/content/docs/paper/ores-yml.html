@@ -1,0 +1,34 @@
+<h2 id="purpose">Purpose</h2>
+<p><code>ores.yml</code> defines dynamic source-block rules. Every direct child of <code>blocks</code> is interpreted as a case-insensitive Bukkit/Paper material name.</p>
+<h2 id="current-bundled-default">Current bundled default</h2>
+<div class="config-file-mount" data-config-file="paper/ores.yml"></div>
+<h2 id="rule-schema">Complete rule schema</h2>
+<div class="table-scroll" role="region" tabindex="0"><table><thead><tr><th>Path under <code>blocks.&lt;source&gt;</code></th><th>Semantics</th></tr></thead><tbody>
+<tr><td><code>enabled</code></td><td>Required boolean. False skips the rule before source/mode/material validation.</td></tr>
+<tr><td><code>mode</code></td><td><code>REPLACEMENT</code> or <code>DROP</code>.</td></tr>
+<tr><td><code>replacement</code></td><td>Non-air block different from source in REPLACEMENT; non-air item in DROP.</td></tr>
+<tr><td><code>permission</code></td><td>Optional nonblank rule-level permission; overrides the global permission.</td></tr>
+<tr><td><code>silk-touch-behavior</code></td><td>Optional <code>VANILLA</code> or <code>DENY</code>; overrides the global value.</td></tr>
+<tr><td><code>drop.*</code></td><td>DROP-only amount schema. Ignored in REPLACEMENT.</td></tr>
+</tbody></table></div>
+<h2 id="material-validation">Material validation</h2>
+<ul>
+<li>The source must exist and be a block.</li>
+<li>REPLACEMENT target must exist, be a block, not be AIR and not equal the source. Same-source replacement is rejected to prevent repeated extraction.</li>
+<li>DROP target must exist, be an item and not be AIR.</li>
+<li>An invalid enabled rule is skipped with a warning; valid rules continue loading.</li>
+</ul>
+<h2 id="drop-amount-schema">DROP amount schema</h2>
+<ul>
+<li><code>drop.amount-mode</code>: <code>FIXED</code>, <code>RANDOM</code>, <code>MATCH_DROPS</code> or <code>MATCH_QUANTITY</code>. Missing DROP section defaults to FIXED 1.</li>
+<li><code>drop.fixed-amount</code>: FIXED only; must be at least 1.</li>
+<li><code>drop.min-amount</code>: RANDOM only; may be 0.</li>
+<li><code>drop.max-amount</code>: RANDOM only; must be at least 1 and not below min.</li>
+<li><code>drop.fortune-multiplier</code>: RANDOM only; multiply the sampled base by <code>max(1, fortuneLevel + 1)</code>.</li>
+<li><code>drop.max-final-amount</code>: RANDOM only; 0 means no cap, otherwise cap the multiplied amount. Negative values invalidate the rule.</li>
+</ul>
+<p><code>MATCH_DROPS</code> uses initial quantity captured at LOWEST. <code>MATCH_QUANTITY</code> uses current quantity at the HIGHEST handler and can reflect earlier plugin changes. Both match total item quantity, not the quantity of one material.</p>
+<h2 id="bundled-rules">Bundled rules</h2>
+<p>The disabled <code>stone</code> entry is a template. Nineteen rules are enabled: eight normal overworld ores become cobblestone, eight deepslate ores become cobbled deepslate, Nether quartz and gold ores become netherrack, and Ancient Debris becomes blackstone.</p>
+<h2 id="safe-custom-rule">Safe custom-rule process</h2>
+<ol><li>Copy the disabled template and rename the source key.</li><li>Choose mode and a compatible replacement.</li><li>Validate optional permission, Silk Touch and DROP settings.</li><li>Keep <code>enabled: false</code> until values are complete.</li><li>Enable, reload and check loaded/skipped counts plus console warnings.</li><li>Test normal, Fortune, Silk Touch and wrong tools in a staging world.</li></ol>

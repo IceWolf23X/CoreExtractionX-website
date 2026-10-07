@@ -1,0 +1,35 @@
+<h2 id="purpose">Purpose</h2>
+<p><code>config.yml</code> controls global enablement, permissions, fallbacks, world scope, manual drop location, replacement physics and XP preservation.</p>
+<h2 id="current-bundled-default">Current bundled default</h2>
+<div class="config-file-mount" data-config-file="paper/config.yml"></div>
+<h2 id="identity-and-enable-state">Identity and enable state</h2>
+<ul>
+<li><code>config-version</code>: bundled marker only; current Java source does not read it.</li>
+<li><code>settings.enabled</code>: master extraction switch. Commands remain available when false.</li>
+<li><code>settings.debug</code>: currently logs that debug mode is enabled; no additional debug path was found.</li>
+</ul>
+<h2 id="permission-and-silk-touch">Permission and Silk Touch</h2>
+<ul>
+<li><code>settings.permission</code>: global required permission when a rule has no nonblank override. Blank means no permission required.</li>
+<li><code>settings.no-permission-behavior</code>: <code>VANILLA</code> bypasses CoreExtractionX; <code>DENY</code> cancels and sends <code>no-permission</code>.</li>
+<li><code>settings.silk-touch-behavior</code>: <code>VANILLA</code> bypasses CoreExtractionX; <code>DENY</code> cancels and sends <code>silk-touch-denied</code>. A rule may override this value.</li>
+</ul>
+<h2 id="world-filter">World filter</h2>
+<ul>
+<li><code>world-filter.mode</code>: <code>DISABLED</code>, <code>WHITELIST</code> or <code>BLACKLIST</code>.</li>
+<li><code>world-filter.worlds</code>: case-insensitive world-name list. An empty WHITELIST runs nowhere and logs a warning; an empty BLACKLIST blocks nothing.</li>
+</ul>
+<h2 id="drop-spawn">Manual drop spawn</h2>
+<ul>
+<li><code>drop-spawn.mode</code>: <code>HIT_FACE</code> or <code>BLOCK_CENTER</code>.</li>
+<li><code>drop-spawn.raytrace-distance</code>: maximum face trace distance, clamped to at least <code>0.1</code>.</li>
+<li><code>drop-spawn.face-offset</code>: distance from center toward the hit face, clamped to at least <code>0</code>.</li>
+</ul>
+<p>HIT_FACE falls back to block center when the trace is missing, has no face or hits a different block.</p>
+<h2 id="replacement-and-experience">Replacement and experience</h2>
+<ul>
+<li><code>replacement.apply-physics</code>: passed to the replacement block update. False avoids unrelated physics by default.</li>
+<li><code>experience.preserve-vanilla-exp</code>: in REPLACEMENT, respawn the XP captured from the cancelled original break. It does not affect DROP mode.</li>
+</ul>
+<h2 id="fatal-enum-errors">Fatal global enum errors</h2>
+<p>Invalid no-permission, Silk Touch, world-filter or drop-spawn enum text safe-disables all extraction. Fix the value and reload; commands remain usable.</p>

@@ -1,0 +1,13 @@
+<h2 id="platform">Platform and dependencies</h2>
+<details><summary>Does CoreExtractionX require a database or economy?</summary><p>No. It uses three YAML files and has no database, Vault, PlaceholderAPI or economy dependency.</p></details>
+<details><summary>Does it require WorldGuard or GriefPrevention?</summary><p>No hard dependency. It ignores a break only when the event was already cancelled before its HIGHEST handler.</p></details>
+<details><summary>Does it run on Spigot?</summary><p>The supported target is Paper 1.21.11+. The project compiles against Paper API and is not documented for Spigot.</p></details>
+<h2 id="rules-and-drops">Rules and drops</h2>
+<details><summary>Can any block be a source?</summary><p>Any valid Bukkit/Paper material that is a block can be a source key. An enabled rule must pass the mode and replacement validation.</p></details>
+<details><summary>Does Fortune work?</summary><p>REPLACEMENT calculates natural drops through Paper using the current tool and player. DROP leaves original drops to vanilla. RANDOM extra amounts can optionally multiply by Fortune.</p></details>
+<details><summary>What is the difference between MATCH_DROPS and MATCH_QUANTITY?</summary><p>MATCH_DROPS uses initial generated quantity captured at LOWEST. MATCH_QUANTITY uses current event quantity at CoreExtractionX's HIGHEST handler.</p></details>
+<details><summary>What happens with the wrong tool?</summary><p>There is no extra tool gate. In REPLACEMENT, Paper can calculate no natural drop while the block is still replaced and the held tool is damaged once.</p></details>
+<details><summary>What happens with Silk Touch or missing permission?</summary><p>Each policy resolves per-rule then global configuration. VANILLA bypasses CoreExtractionX; DENY cancels and sends the configured message.</p></details>
+<h2 id="operations">Operations</h2>
+<details><summary>Can configuration be reloaded?</summary><p>Yes. Both reload commands read all three files. Fatal global enum errors keep extraction safe-disabled until fixed and reloaded.</p></details>
+<details><summary>How do I report a problem?</summary><p>Use the <a href="https://github.com/IceWolf23X/CoreExtractionX-issues/issues" rel="noopener noreferrer" target="_blank">public CoreExtractionX Issues tracker</a> with plugin/Paper/Java versions, the relevant rule, world/permission setup and reproduction steps.</p></details>

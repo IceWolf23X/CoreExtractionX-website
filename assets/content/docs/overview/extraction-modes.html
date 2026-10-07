@@ -1,0 +1,24 @@
+<h2 id="replacement-mode">REPLACEMENT mode</h2>
+<ol>
+<li>Read natural drops once from the source block using the current main-hand tool and player.</li>
+<li>Capture the experience amount from <code>BlockBreakEvent</code>.</li>
+<li>Suppress vanilla item drops and cancel the original break.</li>
+<li>Set the configured replacement block with the configured physics flag.</li>
+<li>Damage the main-hand tool once.</li>
+<li>Spawn the previously calculated natural drops at the configured location.</li>
+<li>If enabled, spawn the captured XP as an orb.</li>
+</ol>
+<p>There is no separate correct-tool gate. With a tool that produces no natural drops, the source can still be replaced and yield no item. Test wrong-tool behavior for every valuable rule.</p>
+<h2 id="drop-mode">DROP mode</h2>
+<p>The break remains vanilla. At block-break time CoreExtractionX records the player, block position, source material, rule, drop location and Fortune level. During <code>BlockDropItemEvent</code> it captures the initial item quantity at LOWEST, then removes the pending context and adds the configured item at HIGHEST.</p>
+<p>The pending context is removed after handling or on the next scheduler tick. If no matching drop event arrives, no extra item is spawned.</p>
+<h2 id="amount-modes">DROP amount modes</h2>
+<ul>
+<li><code>FIXED</code>: exactly <code>fixed-amount</code>.</li>
+<li><code>RANDOM</code>: inclusive min/max; optional multiplication by <code>max(1, Fortune + 1)</code>; optional positive cap.</li>
+<li><code>MATCH_DROPS</code>: total generated item quantity seen at LOWEST, before later event changes.</li>
+<li><code>MATCH_QUANTITY</code>: total current event item quantity when CoreExtractionX handles HIGHEST; earlier plugin modifications can affect it.</li>
+</ul>
+<p>The configured extra material is split into legal stacks using that material's maximum stack size.</p>
+<h2 id="experience-and-durability">Experience and durability</h2>
+<p>REPLACEMENT must handle durability and optional XP because it cancels the original event. DROP leaves the original break, tool damage, original drops and XP to vanilla/Paper and adds only the extra item.</p>

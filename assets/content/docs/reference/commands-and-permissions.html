@@ -1,0 +1,14 @@
+<h2 id="commands">Commands</h2>
+<div class="table-scroll" role="region" tabindex="0"><table><thead><tr><th>Command</th><th>Permission</th><th>Behavior</th></tr></thead><tbody>
+<tr><td><code>/coreextractionx</code> or <code>/cex</code></td><td>None</td><td>Show both help lines.</td></tr>
+<tr><td><code>/coreextractionx help</code> or <code>/cex help</code></td><td>None</td><td>Show both help lines.</td></tr>
+<tr><td><code>/coreextractionx reload</code> or <code>/cex reload</code></td><td><code>coreextractionx.reload</code></td><td>Reload messages, global configuration and block rules; report loaded/skipped counts or safe-disabled failure.</td></tr>
+</tbody></table></div>
+<h2 id="permissions">Declared permissions</h2>
+<ul>
+<li><code>coreextractionx.reload</code>: default <code>op</code>.</li>
+<li><code>coreextractionx.use</code>: default <code>true</code>; also the bundled global extraction permission.</li>
+</ul>
+<h2 id="runtime-permission-resolution">Runtime permission resolution</h2>
+<ol><li>Use a nonblank <code>blocks.&lt;source&gt;.permission</code> if present.</li><li>Otherwise use <code>settings.permission</code>.</li><li>If the resolved text is blank, require no permission.</li><li>If the player lacks the permission, apply <code>settings.no-permission-behavior</code>.</li></ol>
+<p>Custom per-rule strings are supported but are not predefined declared nodes. Configure them through the server's permission manager.</p>

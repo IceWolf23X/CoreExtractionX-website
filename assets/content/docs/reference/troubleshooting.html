@@ -1,0 +1,18 @@
+<h2 id="no-files-generated">No files generated</h2>
+<ul><li>Confirm the JAR is in the Paper <code>plugins/</code> directory.</li><li>Confirm Java 21 and a supported Paper 1.21.11+ build.</li><li>Inspect plugin-load errors before editing YAML.</li></ul>
+<h2 id="command-works-but-extraction-is-disabled">Command works but extraction is disabled</h2>
+<p>Look for a fatal invalid enum in no-permission behavior, Silk Touch behavior, world-filter mode or drop-spawn mode. Fix it and reload. Also confirm <code>settings.enabled: true</code>.</p>
+<h2 id="rule-does-nothing">A rule does nothing</h2>
+<ul><li>Confirm the source key is a block material and <code>enabled</code> is a real boolean set to true.</li><li>Confirm SURVIVAL mode and an allowed world.</li><li>Check effective permission and Silk Touch policy.</li><li>Read the exact skipped-rule warning.</li></ul>
+<h2 id="rule-is-skipped">A rule is skipped</h2>
+<p>REPLACEMENT needs a different non-air block target. DROP needs a non-air item target and valid amount settings. Invalid enabled rules do not block valid rules.</p>
+<h2 id="block-breaks-but-no-replacement-appears">Block breaks but no replacement appears</h2>
+<p>Confirm REPLACEMENT mode, allowed scope and that no earlier plugin cancelled the break. DROP mode intentionally lets the source disappear normally.</p>
+<h2 id="silk-touch-bypasses-extraction">Silk Touch bypasses extraction</h2>
+<p>This is correct for the bundled VANILLA policy. Use DENY globally or on that rule only when the break should be cancelled.</p>
+<h2 id="drops-spawn-in-an-unexpected-spot">Drops spawn in an unexpected spot</h2>
+<p>Use BLOCK_CENTER for fixed center spawning. HIT_FACE falls back to center when the ray trace does not match the source block face.</p>
+<h2 id="drops-appear-in-the-wrong-amount">Drops appear in the wrong amount</h2>
+<p>Check the amount mode. MATCH_DROPS uses LOWEST initial quantity; MATCH_QUANTITY uses HIGHEST current quantity. Both total all event item stacks. RANDOM may multiply by Fortune and then apply a positive cap.</p>
+<h2 id="reload-failed">Reload failed</h2>
+<p>Fix YAML syntax/indentation, then fatal global enums. Reload again and compare loaded/skipped counts with the intended enabled rules.</p>

@@ -1,0 +1,16 @@
+<h2 id="platform">Platform and Java</h2>
+<ul>
+<li>Java 21.</li>
+<li>Paper API target <code>1.21.11-R0.1-SNAPSHOT</code>.</li>
+<li>Standalone Paper server; Modrinth also labels the project for Purpur.</li>
+<li>No Spigot, Velocity, Bungee, Fabric or client module.</li>
+</ul>
+<h2 id="runtime-version-check">Runtime version check</h2>
+<p>The plugin warns when the reported Minecraft version is older than 1.21.11, but the current source does not disable itself through a hard runtime guard. The supported target remains Paper 1.21.11+; do not treat a warning-only startup on an older server as compatibility evidence.</p>
+<h2 id="dependencies">Dependencies and integrations</h2>
+<p>Paper API is the only declared runtime API and is provided by the server. Vault, PlaceholderAPI, WorldGuard, GriefPrevention, an economy, a database and a resource pack are not required. Protection compatibility comes from event cancellation rather than a plugin-specific hook.</p>
+<p>Anonymous bStats reporting uses project ID <code>33072</code>. Server owners control metrics globally in <code>plugins/bStats/config.yml</code>.</p>
+<h2 id="release-maturity">Release maturity</h2>
+<p>The current source and newest Modrinth file are both <code>2026.1.1</code>. Modrinth classifies that file as <strong>beta</strong>.</p>
+<h2 id="not-in-this-version">Deliberate exclusions</h2>
+<p>CoreExtractionX does not implement vein mining, auto mining, a custom progression system, economy rewards, a GUI, persistent player state or a general-purpose custom-drop framework.</p>
