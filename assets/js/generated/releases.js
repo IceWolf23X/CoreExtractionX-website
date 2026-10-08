@@ -3,6 +3,45 @@ window.COREX_RELEASES = {
   "schemaVersion": 2,
   "provider": "github",
   "repository": "IceWolf23X/CoreExtractionX-website",
-  "generatedAt": "2026-10-07T21:45:57.448Z",
-  "releases": []
+  "generatedAt": "2026-10-08T00:39:01.142Z",
+  "releases": [
+    {
+      "tag_name": "v2026.1.1",
+      "name": "CoreExtractionX 2026.1.1 (Beta)",
+      "body": "# CoreExtractionX 2026.1.1\n\n## Added\n\n- Added anonymous bStats reporting for Paper/Purpur, including current and record server/player statistics.\n\n## Compatibility\n\n- Metrics respect the server-wide bStats setting in `plugins/bStats/config.yml`; no CoreExtractionX configuration migration is required.\n- A metrics connection failure does not prevent CoreExtractionX from starting.\n",
+      "html_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/tag/v2026.1.1",
+      "draft": false,
+      "prerelease": true,
+      "published_at": "2026-10-08T00:38:56Z",
+      "assets": [
+        {
+          "name": "CoreExtractionX-2026.1.1.jar",
+          "state": "uploaded",
+          "size": 72618,
+          "digest": "sha256:71c1f665770ac4837bca7e27608f174a7d59fba9fd3cc4e0e320d296b6608e4b",
+          "browser_download_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/download/v2026.1.1/CoreExtractionX-2026.1.1.jar",
+          "download_count": 0
+        }
+      ]
+    },
+    {
+      "tag_name": "v2026.1.0",
+      "name": "CoreExtractionX 2026.1.0",
+      "body": "# CoreExtractionX 2026.1.0\n\n## Added\n- Added YAML rules for replacing mined blocks while preserving natural drops, or adding an extra item drop to normal block breaking.\n- Added configurable drop amounts, Silk Touch behavior, permissions and world filters.\n- Added default rules for vanilla ores, deepslate ores, Nether ores and Ancient Debris.\n- Added configuration reload through `/coreextractionx reload` and `/cex reload`.\n",
+      "html_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/tag/v2026.1.0",
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-10-08T00:38:52Z",
+      "assets": [
+        {
+          "name": "CoreExtractionX-2026.1.0.jar",
+          "state": "uploaded",
+          "size": 47577,
+          "digest": "sha256:acedcc24ec46112d8be83f6654b769a944d52c95dfa71cd19c0f22eb3d1dc21a",
+          "browser_download_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/download/v2026.1.0/CoreExtractionX-2026.1.0.jar",
+          "download_count": 0
+        }
+      ]
+    }
+  ]
 };
