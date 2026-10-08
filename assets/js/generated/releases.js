@@ -3,7 +3,7 @@ window.COREX_RELEASES = {
   "schemaVersion": 2,
   "provider": "github",
   "repository": "IceWolf23X/CoreExtractionX-website",
-  "generatedAt": "2026-10-08T00:39:01.142Z",
+  "generatedAt": "2026-10-08T10:40:45.939Z",
   "releases": [
     {
       "tag_name": "v2026.1.1",
@@ -20,7 +20,7 @@ window.COREX_RELEASES = {
           "size": 72618,
           "digest": "sha256:71c1f665770ac4837bca7e27608f174a7d59fba9fd3cc4e0e320d296b6608e4b",
           "browser_download_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/download/v2026.1.1/CoreExtractionX-2026.1.1.jar",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     },
@@ -39,7 +39,7 @@ window.COREX_RELEASES = {
           "size": 47577,
           "digest": "sha256:acedcc24ec46112d8be83f6654b769a944d52c95dfa71cd19c0f22eb3d1dc21a",
           "browser_download_url": "https://github.com/IceWolf23X/CoreExtractionX-website/releases/download/v2026.1.0/CoreExtractionX-2026.1.0.jar",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     }
